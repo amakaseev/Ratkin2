@@ -6,15 +6,13 @@ using UnityEngine.InputSystem;
 
 public class EditorCamera: MonoBehaviour {
 
-  public Transform  yaw;
-  public Transform  pitch;
-
   public float      moveSpeed;
   public float      lookSpeed;
 
   Vector2 _cursorPosition;
   Vector2 _cursorDelta;
   Vector2 _moveDirection = Vector3.zero;
+  Vector3 _pointAroundRotate;
   bool    _leftButton;
   bool    _lookActive;
   Vector2 _zoom;
@@ -31,25 +29,28 @@ public class EditorCamera: MonoBehaviour {
   public void OnCursorDelta(InputValue input) {
     _cursorDelta = input.Get<Vector2>();
     if (_lookActive && _leftButton) {
-      yaw.transform.Rotate(0f, _cursorDelta.x * lookSpeed, 0f);
-      pitch.transform.Rotate(_cursorDelta.y * lookSpeed, 0f, 0f);
+      transform.RotateAround(_pointAroundRotate, Vector3.up, _cursorDelta.x * lookSpeed);
+      transform.RotateAround(_pointAroundRotate, transform.right, - _cursorDelta.y * lookSpeed);
     }
+  }
+
+  public Vector3 GetLookPoint(Vector2 screenPosition) {
+    float distance;
+    Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+    Plane plane = new Plane(Vector3.up, Vector3.zero);
+    plane.Raycast(ray, out distance);
+    return ray.GetPoint(distance);
   }
 
   public void OnLeftButton(InputValue input) {
     _leftButton = (input.Get<float>() == 0f)? false : true;
     if (!_lookActive && _leftButton) {
-      float distance;
-      Ray ray = Camera.main.ScreenPointToRay(_cursorPosition);
-      Plane plane = new Plane(Vector3.up, Vector3.zero);
-      if (plane.Raycast(ray, out distance)) {
-        Vector3 point = ray.GetPoint(distance);
+      Vector3 point = GetLookPoint(_cursorPosition);
 
-        Debug.DrawLine(Camera.main.transform.position, point, Color.red );
-
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.position = point;
-      }
+      GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+      point.x = Mathf.Floor(point.x) + 0.5f;
+      point.z = Mathf.Floor(point.z) + 0.5f;
+      sphere.transform.position = point;
     }
   }
 
@@ -59,6 +60,9 @@ public class EditorCamera: MonoBehaviour {
 
   public void OnLookActive(InputValue input) {
     _lookActive = (input.Get<float>() == 0f)? false : true;
+    if (_lookActive) {
+      _pointAroundRotate = GetLookPoint(new Vector2(Screen.width / 2, Screen.height / 2));
+    }
   }
 
   public void OnZoom(InputValue input) {
@@ -69,15 +73,18 @@ public class EditorCamera: MonoBehaviour {
     var dt = Time.deltaTime;
 
     if (_moveDirection != Vector2.zero) {
-      var right = yaw.right * _moveDirection.x * moveSpeed * dt;
-      var forward = yaw.forward * _moveDirection.y * moveSpeed * dt;
+      var right = Vector3.right * _moveDirection.x * moveSpeed * dt;
+      var forward = transform.forward;
+      forward.y = 0;
+      forward.Normalize();
+      forward = forward * _moveDirection.y * moveSpeed * dt;
 
-      transform.Translate(forward);
       transform.Translate(right);
+      transform.position = transform.position + forward;
     }
 
     if (_zoom != Vector2.zero) {
-      transform.Translate(pitch.forward * _zoom.y * moveSpeed * dt);
+      transform.Translate(Vector3.forward * _zoom.y * moveSpeed * dt);
     }
   }
 
