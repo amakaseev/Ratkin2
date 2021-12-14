@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformsPanel : MonoBehaviour {
+public class PlatformsPanel: MonoBehaviour {
 
   public Platform[] platforms;
   public Platform   currentPlatform;
