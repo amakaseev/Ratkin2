@@ -12,7 +12,10 @@ public class EditorCamera: MonoBehaviour {
   public float      moveSpeed;
   public float      lookSpeed;
 
+  Vector2 _cursorPosition;
+  Vector2 _cursorDelta;
   Vector2 _moveDirection = Vector3.zero;
+  bool    _leftButton;
   bool    _lookActive;
   Vector2 _zoom;
 
@@ -21,20 +24,41 @@ public class EditorCamera: MonoBehaviour {
     QualitySettings.vSyncCount = 1;
   }
 
+  public void OnCursorPosition(InputValue input) {
+    _cursorPosition = input.Get<Vector2>();
+  }
+
+  public void OnCursorDelta(InputValue input) {
+    _cursorDelta = input.Get<Vector2>();
+    if (_lookActive && _leftButton) {
+      yaw.transform.Rotate(0f, _cursorDelta.x * lookSpeed, 0f);
+      pitch.transform.Rotate(_cursorDelta.y * lookSpeed, 0f, 0f);
+    }
+  }
+
+  public void OnLeftButton(InputValue input) {
+    _leftButton = (input.Get<float>() == 0f)? false : true;
+    if (!_lookActive && _leftButton) {
+      float distance;
+      Ray ray = Camera.main.ScreenPointToRay(_cursorPosition);
+      Plane plane = new Plane(Vector3.up, Vector3.zero);
+      if (plane.Raycast(ray, out distance)) {
+        Vector3 point = ray.GetPoint(distance);
+
+        Debug.DrawLine(Camera.main.transform.position, point, Color.red );
+
+        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        sphere.transform.position = point;
+      }
+    }
+  }
+
   public void OnMove(InputValue input) {
     _moveDirection = input.Get<Vector2>();
   }
 
   public void OnLookActive(InputValue input) {
     _lookActive = (input.Get<float>() == 0f)? false : true;
-  }
-
-  public void OnLookDelta(InputValue input) {
-    Vector2 lookDirection = input.Get<Vector2>();
-    if (_lookActive) {
-      yaw.transform.Rotate(0f, lookDirection.x * lookSpeed, 0f);
-      pitch.transform.Rotate(lookDirection.y * lookSpeed, 0f, 0f);
-    }
   }
 
   public void OnZoom(InputValue input) {

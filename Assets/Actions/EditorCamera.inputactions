@@ -6,6 +6,33 @@
             "id": "a4d50b7a-8f40-4c05-a150-29fed4a9ff4a",
             "actions": [
                 {
+                    "name": "CursorPosition",
+                    "type": "Value",
+                    "id": "7d4be092-accc-42e0-a4fd-c906938c52b9",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "CursorDelta",
+                    "type": "Value",
+                    "id": "2bd99763-ba86-4c13-ab14-61657f8ef309",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LeftButton",
+                    "type": "Value",
+                    "id": "dc4ed17f-cc2c-41f2-9e47-a562cef20f42",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "dc847700-fd5c-4be1-b138-74d648e5e8f5",
@@ -15,19 +42,10 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LookDelta",
-                    "type": "Value",
-                    "id": "2bd99763-ba86-4c13-ab14-61657f8ef309",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "LookActive",
                     "type": "Value",
                     "id": "589606bf-005b-4993-93e6-930782e5015a",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -43,6 +61,28 @@
                 }
             ],
             "bindings": [
+                {
+                    "name": "",
+                    "id": "4ff328c5-f5ae-4b8d-8645-d671561acecc",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da4368b8-f72f-4f6f-9143-8c40b03c3473",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
                 {
                     "name": "2D Vector",
                     "id": "d80fc55d-ac05-4a55-a9bd-fbe3d670cb78",
@@ -100,19 +140,8 @@
                 },
                 {
                     "name": "",
-                    "id": "f7b4fb38-bb0e-4e0a-a6b5-b9e6e3b29ec4",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LookDelta",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "f311e7b0-d5d7-49c8-a2a4-6191d47a3cc2",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/leftAlt",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -122,12 +151,23 @@
                 },
                 {
                     "name": "",
-                    "id": "4ff328c5-f5ae-4b8d-8645-d671561acecc",
-                    "path": "<Mouse>/scroll",
+                    "id": "f7b4fb38-bb0e-4e0a-a6b5-b9e6e3b29ec4",
+                    "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Zoom",
+                    "action": "CursorDelta",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a69d9080-74ca-4373-be91-0eab469d39a2",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
