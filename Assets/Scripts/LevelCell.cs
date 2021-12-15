@@ -19,6 +19,12 @@ public class LevelCell : MonoBehaviour {
     }
   }
 
+  public Vector3 position {
+    get {
+      return transform.position;
+    }
+  }
+
   public bool IsEmpty {
     get {
       if (platform != null) return false;

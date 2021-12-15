@@ -5,7 +5,10 @@ using UnityEngine;
 
 public class Level: MonoBehaviour {
 
-  public List<LevelCell> _cells = new List<LevelCell>();
+  List<LevelCell> _cells = new List<LevelCell>();
+  Vector2Int      _size = new Vector2Int();
+  Bounds          _bounds;
+  bool            _needUpdateSize;
 
   public static LevelCell CreateCell() {
     GameObject cellObject = new GameObject("LevelCell");
@@ -38,6 +41,36 @@ public class Level: MonoBehaviour {
     return null;
   }
 
+  public int width {
+    get {
+      if (_needUpdateSize) {
+        UpdateSize();
+      }
+      return _size.x;
+    }
+  }
+
+  public int height {
+    get {
+      if (_needUpdateSize) {
+        UpdateSize();
+      }
+      return _size.y;
+    }
+  }
+
+  void UpdateSize() {
+    // _bounds = null;
+    if (_cells.Count > 0) {
+      _bounds = new Bounds(_cells[0].position, new Vector3(0, 1, 0));
+      _bounds.Encapsulate(_cells[0].position - new Vector3(0, 1, 0));
+    }
+    foreach(var cell in _cells) {
+      _bounds.Encapsulate(cell.position);
+    }
+
+  }
+
   public void SetCell(Vector2Int pos, LevelCell cell) {
     var prevCell = GetCell(pos);
     if (prevCell) {
@@ -46,6 +79,8 @@ public class Level: MonoBehaviour {
     _cells.Add(cell);
     cell.gridPos = pos;
     cell.transform.parent = transform;
+
+    _needUpdateSize =true;
   }
 
   public void RemoveCell(LevelCell cellToRemove) {
@@ -56,6 +91,14 @@ public class Level: MonoBehaviour {
         return;
       }
     }
+
+    _needUpdateSize = true;
+  }
+
+  void OnDrawGizmos() {
+    UpdateSize();
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireCube(_bounds.center, _bounds.size);
   }
 
 }
