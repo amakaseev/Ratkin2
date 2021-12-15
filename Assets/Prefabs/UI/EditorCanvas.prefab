@@ -309,7 +309,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platforms:
   - {fileID: 6329221650941079607, guid: 7366c460bb9764493b0ae748207e401a, type: 3}
-  - {fileID: 6329221650941079607, guid: 7366c460bb9764493b0ae748207e401a, type: 3}
+  - {fileID: 6329221650941079607, guid: 804ed88b7ffa349ad9d05a68eb0f5cce, type: 3}
 --- !u!222 &3189713207997540709
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public class EditorCamera: MonoBehaviour {
   bool    _leftButton;
   bool    _rightButton;
   bool    _lookActive;
+  bool    _editOnMoveActive;
   Vector2 _zoom;
 
   void Start() {
@@ -27,7 +28,7 @@ public class EditorCamera: MonoBehaviour {
   public void OnCursorPosition(InputValue input) {
     _cursorPosition = input.Get<Vector2>();
 
-    if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
+    if (!_isPointerOverGameObject && _editOnMoveActive && _leftButton) {
       Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
     }
   }
@@ -52,6 +53,7 @@ public class EditorCamera: MonoBehaviour {
     _leftButton = (input.Get<float>() == 0f)? false : true;
 
     if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
+      _editOnMoveActive = true;
       Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
       // var point = GetLookPoint(_cursorPosition);
       // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -89,6 +91,10 @@ public class EditorCamera: MonoBehaviour {
     var dt = Time.deltaTime;
 
     _isPointerOverGameObject = EventSystem.current.IsPointerOverGameObject();
+
+    if (_isPointerOverGameObject || _lookActive) {
+      _editOnMoveActive = false;
+    }
 
     if (_moveDirection != Vector2.zero) {
       var right = Vector3.right * _moveDirection.x * moveSpeed * dt;
