@@ -1,3 +1,4 @@
+//using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,18 @@ public class Level: MonoBehaviour {
     return cell;
   }
 
+  public static Vector2Int GetGridPos(Vector3 pos) {
+    return new Vector2Int(
+      (int)(pos.x - ((pos.x < 0)? 1 : 0)),
+      (int)(pos.z - ((pos.z < 0)? 1 : 0))
+    );
+  }
+
   public static Vector3 CenterOfGridPos(Vector2Int pos) {
     return new Vector3(
-      pos.x + ((pos.x < 0)? -0.5f : 0.5f),
+      pos.x + ((pos.x < 0)? 0.5f : 0.5f),
       0,
-      pos.y + ((pos.y < 0)? -0.5f : 0.5f)
+      pos.y + ((pos.y < 0)? 0.5f : 0.5f)
     );
   }
 
@@ -48,13 +56,6 @@ public class Level: MonoBehaviour {
         return;
       }
     }
-  }
-
-  public static Vector2Int GetGridPos(Vector3 point) {
-    return new Vector2Int(
-      (int)point.x,
-      (int)point.z
-    );
   }
 
 }

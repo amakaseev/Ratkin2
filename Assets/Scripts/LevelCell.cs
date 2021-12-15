@@ -27,6 +27,7 @@ public class LevelCell : MonoBehaviour {
   }
 
   public void SetPlatform(Platform plat) {
+    Debug.Log(_gridPos);
     if (platform != null) {
       Destroy(platform);
     }
