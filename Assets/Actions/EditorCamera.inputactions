@@ -33,6 +33,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "RightButton",
+                    "type": "Value",
+                    "id": "4883a726-3ea7-4b2f-84cc-612d457722f1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "Move",
                     "type": "Value",
                     "id": "dc847700-fd5c-4be1-b138-74d648e5e8f5",
@@ -168,6 +177,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f54dd48f-c890-468e-8a72-a4fe9288b229",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

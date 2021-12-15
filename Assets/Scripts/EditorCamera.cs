@@ -15,6 +15,7 @@ public class EditorCamera: MonoBehaviour {
   Vector2 _cursorDelta;
   Vector2 _moveDirection = Vector3.zero;
   bool    _leftButton;
+  bool    _rightButton;
   bool    _lookActive;
   Vector2 _zoom;
 
@@ -29,10 +30,17 @@ public class EditorCamera: MonoBehaviour {
 
   public void OnCursorDelta(InputValue input) {
     _cursorDelta = input.Get<Vector2>();
-    if (_lookActive && _leftButton) {
-      Vector3 rotatePoint = GetLookPoint(new Vector2(Screen.width / 2, Screen.height / 2));
-      transform.RotateAround(rotatePoint, Vector3.up, _cursorDelta.x * lookSpeed);
-      transform.RotateAround(rotatePoint, transform.right, - _cursorDelta.y * lookSpeed);
+    if (_lookActive) {
+      if (_leftButton) {
+        Vector3 rotatePoint = GetLookPoint(new Vector2(Screen.width / 2, Screen.height / 2));
+        transform.RotateAround(rotatePoint, Vector3.up, _cursorDelta.x * lookSpeed);
+        transform.RotateAround(rotatePoint, transform.right, - _cursorDelta.y * lookSpeed);
+      } else if (_rightButton) {
+        var right = transform.right * _cursorDelta.x * 0.2f;
+        var forward = transform.forward * _cursorDelta.y * 0.2f;
+        forward.y = 0;
+        transform.position = transform.position - forward - right;
+      }
     }
   }
 
@@ -50,6 +58,14 @@ public class EditorCamera: MonoBehaviour {
       point.z = Mathf.Floor(point.z) + 0.5f;
       sphere.transform.position = point;
     }
+  }
+
+  public void OnRightButton(InputValue input) {
+    if (_blocking) {
+      return;
+    }
+
+    _rightButton = (input.Get<float>() == 0f)? false : true;
   }
 
   public void OnMove(InputValue input) {

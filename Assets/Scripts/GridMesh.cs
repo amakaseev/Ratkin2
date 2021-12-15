@@ -9,7 +9,8 @@ public class GridMesh : MonoBehaviour {
   public float xStep = 1.0f;
   public float yStep = 1.0f;
   [Space]
-  public Color color = Color.white;
+  public Color    color;
+  public Material material;
   [Space]
   public bool isCentered = true;
   public bool generateOnStart = true;
@@ -82,6 +83,7 @@ public class GridMesh : MonoBehaviour {
     _mesh.vertices = _verticies.ToArray();
     _mesh.SetIndices(_indicies, MeshTopology.Lines, 0);
     _meshFilter.mesh = _mesh;
-    _meshRenderer.material = new Material(Shader.Find("Sprites/Default")) { color = color };
+    _meshRenderer.material = (material != null)? material : new Material(Shader.Find("Sprites/Default")) { color = color };
   }
+
 }
