@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class LevelCell : MonoBehaviour {
 
@@ -14,7 +15,7 @@ public class LevelCell : MonoBehaviour {
     }
     set {
       _gridPos = value;
-      transform.position = new Vector3(_gridPos.x, 0, _gridPos.y);
+      transform.position = Level.CenterOfGridPos(_gridPos);
     }
   }
 
@@ -24,5 +25,24 @@ public class LevelCell : MonoBehaviour {
       return true;
     }
   }
+
+  public void SetPlatform(Platform plat) {
+    if (platform != null) {
+      Destroy(platform);
+    }
+
+    if (PrefabUtility.GetPrefabAssetType(plat) == PrefabAssetType.NotAPrefab) {
+      platform = plat;
+    } else {
+      platform = Instantiate(plat);
+    }
+
+    platform.transform.parent = transform;
+    platform.transform.localPosition = Vector3.zero;
+    // platform.transform.localRotation = Quaternion.identity;
+    // platform.transform.localScale = Vector3.one;
+  }
+
+
 
 }

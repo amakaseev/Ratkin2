@@ -310,7 +310,6 @@ MonoBehaviour:
   platforms:
   - {fileID: 6329221650941079607, guid: 7366c460bb9764493b0ae748207e401a, type: 3}
   - {fileID: 6329221650941079607, guid: 7366c460bb9764493b0ae748207e401a, type: 3}
-  currentPlatform: {fileID: 6329221650941079607, guid: 7366c460bb9764493b0ae748207e401a, type: 3}
 --- !u!222 &3189713207997540709
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -476,6 +475,7 @@ GameObject:
   - component: {fileID: 3189713208239803602}
   - component: {fileID: 3189713208239803603}
   - component: {fileID: 3189713208239803604}
+  - component: {fileID: 7221592775966001359}
   m_Layer: 5
   m_Name: EditorCanvas
   m_TagString: Untagged
@@ -565,6 +565,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7221592775966001359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3189713208239803605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593b257f9bd63471180f1558809e90ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3189713208698856921
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public class EditorCamera: MonoBehaviour {
   public float      moveSpeed;
   public float      lookSpeed;
 
-  bool    _blocking;
+  bool    _isPointerOverGameObject;
   Vector2 _cursorPosition;
   Vector2 _cursorDelta;
   Vector2 _moveDirection = Vector3.zero;
@@ -26,6 +26,10 @@ public class EditorCamera: MonoBehaviour {
 
   public void OnCursorPosition(InputValue input) {
     _cursorPosition = input.Get<Vector2>();
+
+    if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
+      Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+    }
   }
 
   public void OnCursorDelta(InputValue input) {
@@ -45,26 +49,19 @@ public class EditorCamera: MonoBehaviour {
   }
 
   public void OnLeftButton(InputValue input) {
-    if (_blocking) {
-      return;
-    }
-
     _leftButton = (input.Get<float>() == 0f)? false : true;
-    if (!_lookActive && _leftButton) {
-      Vector3 point = GetLookPoint(_cursorPosition);
 
-      GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-      point.x = Mathf.Floor(point.x) + 0.5f;
-      point.z = Mathf.Floor(point.z) + 0.5f;
-      sphere.transform.position = point;
+    if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
+      Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+      // var point = GetLookPoint(_cursorPosition);
+      // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+      // point.x = Mathf.Floor(point.x) + 0.5f;
+      // point.z = Mathf.Floor(point.z) + 0.5f;
+      // sphere.transform.position = point;
     }
   }
 
   public void OnRightButton(InputValue input) {
-    if (_blocking) {
-      return;
-    }
-
     _rightButton = (input.Get<float>() == 0f)? false : true;
   }
 
@@ -91,7 +88,7 @@ public class EditorCamera: MonoBehaviour {
   public void Update() {
     var dt = Time.deltaTime;
 
-    _blocking = EventSystem.current.IsPointerOverGameObject();
+    _isPointerOverGameObject = EventSystem.current.IsPointerOverGameObject();
 
     if (_moveDirection != Vector2.zero) {
       var right = Vector3.right * _moveDirection.x * moveSpeed * dt;
