@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Level))]
 public class LevelEditorAPI: MonoBehaviour {
 
-  public EditorUI editorUI;
+  public EditorUI_API editorUI;
 
   Level _level;
 
