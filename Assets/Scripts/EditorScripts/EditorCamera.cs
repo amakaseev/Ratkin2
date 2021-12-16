@@ -28,8 +28,12 @@ public class EditorCamera: MonoBehaviour {
   public void OnCursorPosition(InputValue input) {
     _cursorPosition = input.Get<Vector2>();
 
-    if (!_isPointerOverGameObject && _editOnMoveActive && _leftButton) {
-      Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+    if (!_isPointerOverGameObject && _editOnMoveActive) {
+      if (_leftButton) {
+        Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+      } else if (_rightButton) {
+        Actions.OnRemovePlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+      }
     }
   }
 
@@ -55,16 +59,16 @@ public class EditorCamera: MonoBehaviour {
     if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
       _editOnMoveActive = true;
       Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
-      // var point = GetLookPoint(_cursorPosition);
-      // GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-      // point.x = Mathf.Floor(point.x) + 0.5f;
-      // point.z = Mathf.Floor(point.z) + 0.5f;
-      // sphere.transform.position = point;
     }
   }
 
   public void OnRightButton(InputValue input) {
     _rightButton = (input.Get<float>() == 0f)? false : true;
+
+    if (!_isPointerOverGameObject && !_lookActive && _rightButton) {
+      _editOnMoveActive = true;
+      Actions.OnRemovePlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+    }
   }
 
   public void OnMove(InputValue input) {

@@ -13,6 +13,8 @@ public class LevelEditorAPI: MonoBehaviour {
     _level = GetComponent<Level>();
 
     Actions.OnSetPlatform += OnSetPlatform;
+    Actions.OnRemovePlatform += OnRemovePlatform;
+    Actions.OnCellIsEmpty += OnCellIsEmpty;
   }
 
   void OnSetPlatform(Vector2Int gridPos) {
@@ -22,6 +24,17 @@ public class LevelEditorAPI: MonoBehaviour {
       _level.SetCell(gridPos, cell);
     }
     cell.SetPlatform(editorUI.currentPlatform);
+  }
+
+  void OnRemovePlatform(Vector2Int gridPos) {
+    LevelCell cell = _level.GetCell(gridPos);
+    if (cell != null) {
+      cell.RemovePlatform(editorUI.currentPlatform);
+    }
+  }
+
+  void OnCellIsEmpty(LevelCell cell) {
+    _level.RemoveCell(cell);
   }
 
 }
