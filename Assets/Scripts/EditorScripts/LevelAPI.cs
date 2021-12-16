@@ -3,33 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Level))]
-public class LevelEditorAPI: MonoBehaviour {
+public class LevelAPI: MonoBehaviour {
 
-  public EditorUI_API editorUI;
+  public EditorAPI editorAPI;
 
   Level _level;
 
   void Start() {
     _level = GetComponent<Level>();
 
-    Actions.OnSetPlatform += OnSetPlatform;
-    Actions.OnRemovePlatform += OnRemovePlatform;
+    Actions.OnSetToCell += OnSetToCell;
+    Actions.OnRemoveFromCell += OnRemoveFromCell;
     Actions.OnCellIsEmpty += OnCellIsEmpty;
   }
 
-  void OnSetPlatform(Vector2Int gridPos) {
+  void OnSetToCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
     if (cell == null) {
       cell = Level.CreateCell();
       _level.SetCell(gridPos, cell);
     }
-    cell.SetPlatform(editorUI.currentPlatform);
+
+    if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
+      cell.SetPlatform(editorAPI.currentPlatform);
+    }
   }
 
-  void OnRemovePlatform(Vector2Int gridPos) {
+  void OnRemoveFromCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
     if (cell != null) {
-      cell.RemovePlatform(editorUI.currentPlatform);
+      if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
+        cell.RemovePlatform();
+      }
     }
   }
 

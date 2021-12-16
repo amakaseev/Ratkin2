@@ -30,9 +30,9 @@ public class EditorCamera: MonoBehaviour {
 
     if (!_isPointerOverGameObject && _editOnMoveActive) {
       if (_leftButton) {
-        Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+        Actions.OnSetToCell(Level.GetGridPos(GetLookPoint(_cursorPosition)));
       } else if (_rightButton) {
-        Actions.OnRemovePlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+        Actions.OnRemoveFromCell(Level.GetGridPos(GetLookPoint(_cursorPosition)));
       }
     }
   }
@@ -58,7 +58,7 @@ public class EditorCamera: MonoBehaviour {
 
     if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
       _editOnMoveActive = true;
-      Actions.OnSetPlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+      Actions.OnSetToCell(Level.GetGridPos(GetLookPoint(_cursorPosition)));
     }
   }
 
@@ -67,7 +67,7 @@ public class EditorCamera: MonoBehaviour {
 
     if (!_isPointerOverGameObject && !_lookActive && _rightButton) {
       _editOnMoveActive = true;
-      Actions.OnRemovePlatform(Level.GetGridPos(GetLookPoint(_cursorPosition)));
+      Actions.OnRemoveFromCell(Level.GetGridPos(GetLookPoint(_cursorPosition)));
     }
   }
 

@@ -49,7 +49,7 @@ public class LevelCell : MonoBehaviour {
     platform.transform.localScale = Vector3.one;
   }
 
-  public void RemovePlatform(Platform plat) {
+  public void RemovePlatform() {
     if (platform != null) {
       Destroy(platform.gameObject);
       platform = null;
