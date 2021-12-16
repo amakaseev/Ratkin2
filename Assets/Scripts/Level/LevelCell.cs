@@ -25,7 +25,7 @@ public class LevelCell : MonoBehaviour {
     }
   }
 
-  public bool IsEmpty {
+  public bool isEmpty {
     get {
       if (platform != null) return false;
       return true;
@@ -34,7 +34,7 @@ public class LevelCell : MonoBehaviour {
 
   public void SetPlatform(Platform plat) {
     if (platform != null) {
-      Destroy(platform);
+      Destroy(platform.gameObject);
     }
 
     if (PrefabUtility.GetPrefabAssetType(plat) == PrefabAssetType.NotAPrefab) {
@@ -45,10 +45,19 @@ public class LevelCell : MonoBehaviour {
 
     platform.transform.parent = transform;
     platform.transform.localPosition = Vector3.zero;
-    // platform.transform.localRotation = Quaternion.identity;
-    // platform.transform.localScale = Vector3.one;
+    platform.transform.localRotation = Quaternion.identity;
+    platform.transform.localScale = Vector3.one;
   }
 
+  public void RemovePlatform(Platform plat) {
+    if (platform != null) {
+      Destroy(platform.gameObject);
+      platform = null;
+    }
 
+    if (isEmpty) {
+      Actions.OnCellIsEmpty(this);
+    }
+  }
 
 }
