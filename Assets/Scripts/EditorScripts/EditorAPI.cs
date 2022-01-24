@@ -11,6 +11,7 @@ public class EditorAPI: MonoBehaviour {
   }
 
   public ToolsType  currentType = ToolsType.Hand;
+  public LevelCell  currentCell;
   public Platform   currentPlatform;
 
   void Start() {
@@ -19,6 +20,7 @@ public class EditorAPI: MonoBehaviour {
 
   public void OnHandToolSelect() {
     currentType = ToolsType.Hand;
+    currentCell = null;
   }
 
   public void OnPlatformsToolSelect() {

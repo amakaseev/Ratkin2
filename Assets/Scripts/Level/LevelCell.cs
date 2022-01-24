@@ -8,6 +8,7 @@ public class LevelCell : MonoBehaviour {
   public Platform  platform;
 
   Vector2Int _gridPos;
+  bool       _selected;
 
   public Vector2Int gridPos {
     get {
@@ -29,6 +30,18 @@ public class LevelCell : MonoBehaviour {
     get {
       if (platform != null) return false;
       return true;
+    }
+  }
+
+  public void SetSelected(bool selected) {
+    _selected = selected;
+    if (_selected && gameObject.GetComponentInChildren<Outline>() == null) {
+      var outline = gameObject.AddComponent<Outline>();
+      outline.OutlineMode = Outline.Mode.OutlineAll;
+      outline.OutlineColor = Color.yellow;
+      outline.OutlineWidth = 5f;
+    } else if (!_selected) {
+      Destroy(GetComponent<Outline>());
     }
   }
 

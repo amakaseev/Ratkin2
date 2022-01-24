@@ -19,20 +19,22 @@ public class LevelAPI: MonoBehaviour {
 
   void OnSetToCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
-    if (cell == null) {
+    if ((cell == null) && (editorAPI.currentType == EditorAPI.ToolsType.Platform)) {
       cell = Level.CreateCell();
-      _level.SetCell(gridPos, cell);
-    }
-
-    if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
       cell.SetPlatform(editorAPI.currentPlatform);
+      _level.SetCell(gridPos, cell);
+    } else if (editorAPI.currentType == EditorAPI.ToolsType.Hand) {
+      cell.SetSelected(true);
     }
   }
 
   void OnRemoveFromCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
     if (cell != null) {
-      if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
+      if (editorAPI.currentType == EditorAPI.ToolsType.Hand) {
+        cell.SetSelected(false);
+        // _level.RemoveCell(cell);
+      } else if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
         cell.RemovePlatform();
       }
     }
