@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class LevelGrid: MonoBehaviour {
 
-  GridMesh gridMesh;
+  private GridMesh gridMesh;
 
-  void Start() {
+  private void Start() {
     gridMesh = GetComponent<GridMesh>();
   }
 
-  void Update() {
+  private void Update() {
 
   }
 

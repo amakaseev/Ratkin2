@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using UnityEditor;
+using UnityEngine;
 
 public class LevelCell : MonoBehaviour {
 
-  public Platform  platform;
+  public Platform platform;
 
-  Vector2Int _gridPos;
-  bool       _selected;
+  private Vector2Int _gridPos;
+  private bool       _selected;
 
   public Vector2Int gridPos {
-    get {
-      return _gridPos;
-    }
+    get => _gridPos;
     set {
-      _gridPos = value;
+      _gridPos           = value;
       transform.position = Level.CenterOfGridPos(_gridPos);
     }
   }
@@ -37,7 +33,7 @@ public class LevelCell : MonoBehaviour {
     _selected = selected;
     if (_selected && gameObject.GetComponentInChildren<Outline>() == null) {
       var outline = gameObject.AddComponent<Outline>();
-      outline.OutlineMode = Outline.Mode.OutlineAll;
+      outline.OutlineMode  = Outline.Mode.OutlineAll;
       outline.OutlineColor = Color.yellow;
       outline.OutlineWidth = 5f;
     } else if (!_selected) {
@@ -50,16 +46,13 @@ public class LevelCell : MonoBehaviour {
       Destroy(platform.gameObject);
     }
 
-    if (PrefabUtility.GetPrefabAssetType(plat) == PrefabAssetType.NotAPrefab) {
-      platform = plat;
-    } else {
-      platform = Instantiate(plat);
-    }
+    platform = PrefabUtility.GetPrefabAssetType(plat) == PrefabAssetType.NotAPrefab ? plat : Instantiate(plat);
 
-    platform.transform.parent = transform;
-    platform.transform.localPosition = Vector3.zero;
-    platform.transform.localRotation = Quaternion.identity;
-    platform.transform.localScale = Vector3.one;
+    var transform1 = platform.transform;
+    transform1.parent        = transform;
+    transform1.localPosition = Vector3.zero;
+    transform1.localRotation = Quaternion.identity;
+    transform1.localScale    = Vector3.one;
   }
 
   public void RemovePlatform() {
@@ -72,5 +65,4 @@ public class LevelCell : MonoBehaviour {
       Actions.OnCellIsEmpty(this);
     }
   }
-
 }
