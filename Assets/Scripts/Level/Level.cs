@@ -1,14 +1,13 @@
 //using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Level: MonoBehaviour {
 
-  List<LevelCell> _cells = new List<LevelCell>();
-  Vector2Int      _size = new Vector2Int();
-  Bounds          _bounds;
-  bool            _needUpdateSize;
+  private readonly List<LevelCell> _cells = new List<LevelCell>();
+  private          Vector2Int      _size;
+  private          Bounds          _bounds;
+  private          bool            _needUpdateSize;
 
   public static LevelCell CreateCell() {
     GameObject cellObject = new GameObject("LevelCell");
@@ -25,9 +24,9 @@ public class Level: MonoBehaviour {
 
   public static Vector3 CenterOfGridPos(Vector2Int pos) {
     return new Vector3(
-      pos.x + ((pos.x < 0)? 0.5f : 0.5f),
+      pos.x + 0.5f,
       0,
-      pos.y + ((pos.y < 0)? 0.5f : 0.5f)
+      pos.y + 0.5f
     );
   }
 

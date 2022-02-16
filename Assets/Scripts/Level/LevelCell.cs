@@ -16,11 +16,7 @@ public class LevelCell : MonoBehaviour {
     }
   }
 
-  public Vector3 position {
-    get {
-      return transform.position;
-    }
-  }
+  public Vector3 position => transform.position;
 
   public bool isEmpty {
     get {

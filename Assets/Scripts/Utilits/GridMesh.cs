@@ -15,8 +15,8 @@ public class GridMesh : MonoBehaviour {
   public bool isCentered = true;
   public bool generateOnStart = true;
 
-  private float _xOffset = 0.0f;
-  private float _zOffset = 0.0f;
+  private float _xOffset;
+  private float _zOffset;
 
   private readonly List<Vector3> _verticies = new List<Vector3>();
   private readonly List<int> _indicies = new List<int>();
