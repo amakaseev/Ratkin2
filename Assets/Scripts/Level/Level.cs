@@ -30,6 +30,10 @@ public class Level: MonoBehaviour {
     );
   }
 
+  public List<LevelCell> GetCells() {
+    return _cells;
+  }
+
   public LevelCell GetCell(Vector2Int pos) {
     foreach (var cell in _cells) {
       if (cell.gridPos == pos) {

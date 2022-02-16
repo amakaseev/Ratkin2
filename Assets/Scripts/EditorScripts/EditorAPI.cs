@@ -5,22 +5,25 @@ using UnityEngine;
 public class EditorAPI: MonoBehaviour {
 
   public enum ToolsType {
+    General,
     Hand,
     Platform,
     Objects
   }
 
   public ToolsType  currentType = ToolsType.Hand;
-  public LevelCell  currentCell;
   public Platform   currentPlatform;
 
   void Start() {
     Actions.OnChangeCurrentPlatform += OnChangeCurrentPlatform;
   }
 
+  public void OnGeneralToolSelect() {
+    currentType = ToolsType.General;
+  }
+  
   public void OnHandToolSelect() {
     currentType = ToolsType.Hand;
-    currentCell = null;
   }
 
   public void OnPlatformsToolSelect() {
@@ -31,7 +34,7 @@ public class EditorAPI: MonoBehaviour {
     currentType = ToolsType.Objects;
   }
 
-  void OnChangeCurrentPlatform(Platform platform) {
+  private void OnChangeCurrentPlatform(Platform platform) {
     currentPlatform = platform;
   }
 
