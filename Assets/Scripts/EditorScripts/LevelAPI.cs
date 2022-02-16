@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Level))]
@@ -9,7 +7,7 @@ public class LevelAPI: MonoBehaviour {
 
   Level _level;
 
-  void Start() {
+  private void Start() {
     _level = GetComponent<Level>();
 
     Actions.OnSetToCell += OnSetToCell;
@@ -17,18 +15,20 @@ public class LevelAPI: MonoBehaviour {
     Actions.OnCellIsEmpty += OnCellIsEmpty;
   }
 
-  void OnSetToCell(Vector2Int gridPos) {
+  private void OnSetToCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
-    if ((cell == null) && (editorAPI.currentType == EditorAPI.ToolsType.Platform)) {
-      cell = Level.CreateCell();
+    if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
+      if (cell == null) {
+        cell = Level.CreateCell();
+        _level.SetCell(gridPos, cell);
+      }
       cell.SetPlatform(editorAPI.currentPlatform);
-      _level.SetCell(gridPos, cell);
-    } else if (editorAPI.currentType == EditorAPI.ToolsType.Hand) {
+    } else if ((editorAPI.currentType == EditorAPI.ToolsType.Hand) && (cell != null)) {
       cell.SetSelected(true);
     }
   }
 
-  void OnRemoveFromCell(Vector2Int gridPos) {
+  private void OnRemoveFromCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
     if (cell != null) {
       if (editorAPI.currentType == EditorAPI.ToolsType.Hand) {
@@ -40,7 +40,7 @@ public class LevelAPI: MonoBehaviour {
     }
   }
 
-  void OnCellIsEmpty(LevelCell cell) {
+  private void OnCellIsEmpty(LevelCell cell) {
     _level.RemoveCell(cell);
   }
 

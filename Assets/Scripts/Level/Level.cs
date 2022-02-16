@@ -58,7 +58,7 @@ public class Level: MonoBehaviour {
     }
   }
 
-  void UpdateSize() {
+  private void UpdateSize() {
     // _bounds = null;
     if (_cells.Count > 0) {
       _bounds = new Bounds(_cells[0].position, new Vector3(0, 1, 0));
@@ -67,7 +67,6 @@ public class Level: MonoBehaviour {
     foreach(var cell in _cells) {
       _bounds.Encapsulate(cell.position);
     }
-
   }
 
   public void SetCell(Vector2Int pos, LevelCell cell) {
