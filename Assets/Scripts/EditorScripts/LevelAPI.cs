@@ -17,7 +17,7 @@ public class LevelAPI: MonoBehaviour {
 
   private void OnSetToCell(Vector2Int gridPos) {
     LevelCell cell = _level.GetCell(gridPos);
-    if (editorAPI.currentType == EditorAPI.ToolsType.Platform) {
+    if ((editorAPI.currentType == EditorAPI.ToolsType.Platform) && editorAPI.currentPlatform) {
       if (cell == null) {
         cell = Level.CreateCell();
         _level.SetCell(gridPos, cell);
