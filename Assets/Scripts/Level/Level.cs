@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Level: MonoBehaviour {
 
-  private readonly List<LevelCell> _cells = new List<LevelCell>();
-  private          Vector2Int      _size;
-  private          Bounds          _bounds;
-  private          bool            _needUpdateSize;
+  private List<LevelCell> _cells = new List<LevelCell>();
+  private Vector2Int      _size;
+  private Bounds          _bounds;
+  private bool            _needUpdateSize;
 
   public static LevelCell CreateCell() {
     GameObject cellObject = new GameObject("LevelCell");
@@ -60,6 +60,12 @@ public class Level: MonoBehaviour {
       }
       return _size.y;
     }
+  }
+
+  public void Clear() {
+    _cells.Clear();
+    
+    _needUpdateSize = true;
   }
 
   private void UpdateSize() {
