@@ -33,7 +33,7 @@ public static class LevelSerialize {
 	private static JSONObject Serialize(LevelCell cell) {
 		var cellObject = new JSONObject();
 		cellObject["pos"]      = cell.gridPos.ToString();
-		cellObject["platform"] = cell.platform.type;
+		cellObject["platform"] = cell.platform.id;
 		return cellObject;
 	}
 
