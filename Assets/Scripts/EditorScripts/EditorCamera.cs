@@ -20,7 +20,7 @@ public class EditorCamera: MonoBehaviour {
   bool    _editOnMoveActive;
   Vector2 _zoom;
 
-  void Start() {
+  private void Start() {
     Application.targetFrameRate = 60;
     QualitySettings.vSyncCount = 1;
   }
@@ -54,7 +54,7 @@ public class EditorCamera: MonoBehaviour {
   }
 
   public void OnLeftButton(InputValue input) {
-    _leftButton = (input.Get<float>() == 0f)? false : true;
+    _leftButton = (input.Get<float>() != 0f);
 
     if (!_isPointerOverGameObject && !_lookActive && _leftButton) {
       _editOnMoveActive = true;
@@ -63,7 +63,7 @@ public class EditorCamera: MonoBehaviour {
   }
 
   public void OnRightButton(InputValue input) {
-    _rightButton = (input.Get<float>() == 0f)? false : true;
+    _rightButton = (input.Get<float>() != 0f);
 
     if (!_isPointerOverGameObject && !_lookActive && _rightButton) {
       _editOnMoveActive = true;
@@ -76,14 +76,14 @@ public class EditorCamera: MonoBehaviour {
   }
 
   public void OnLookActive(InputValue input) {
-    _lookActive = (input.Get<float>() == 0f)? false : true;
+    _lookActive = (input.Get<float>() != 0f);
   }
 
   public void OnZoom(InputValue input) {
     _zoom = input.Get<Vector2>();
   }
 
-  public Vector3 GetLookPoint(Vector2 screenPosition) {
+  private Vector3 GetLookPoint(Vector2 screenPosition) {
     float distance;
     Ray ray = Camera.main.ScreenPointToRay(screenPosition);
     Plane plane = new Plane(Vector3.up, Vector3.zero);

@@ -15,12 +15,17 @@ public class EditorAPI: MonoBehaviour {
 
   private Level     _level;
   
-  public  ToolsType currentType = ToolsType.Hand;
-  public  Platform  currentPlatform;
+  public ToolsType      currentType = ToolsType.Hand;
+  public PlatformsPanel platformsPanel;
+  public GameObject     currentPlatform;
 
+  private void Awake() {
+    Actions.OnLoadCopmlete += OnLoadCopmlete;
+  }
+  
   private void Start() {
     _level = GameObject.FindObjectOfType<Level>();
-    
+
     Actions.OnChangeCurrentPlatform += OnChangeCurrentPlatform;
   }
 
@@ -34,9 +39,9 @@ public class EditorAPI: MonoBehaviour {
 
   public void OnOpenLevelButton() {
     var fileName = PlayerPrefs.GetString("Editor.LevelFileName", "level");
-    fileName = EditorUtility.OpenFilePanel("Export scene",
-                                           (fileName.Length > 0) ? Path.GetDirectoryName(fileName) : Application.persistentDataPath,
-                                           "json");
+    // fileName = EditorUtility.OpenFilePanel("Export scene",
+    //                                        (fileName.Length > 0) ? Path.GetDirectoryName(fileName) : Application.persistentDataPath,
+    //                                        "json");
 
     if (!string.IsNullOrEmpty(fileName)) {
       LevelSerialize.DeSerialize(_level, JSON.Parse(File.ReadAllText(fileName)) as JSONObject);
@@ -45,9 +50,9 @@ public class EditorAPI: MonoBehaviour {
   
   public void OnSaveLevelButton() {
     var fileName = PlayerPrefs.GetString("Editor.LevelFileName", "level");
-    fileName = EditorUtility.SaveFilePanel("Export scene",
-                                           (fileName.Length > 0) ? Path.GetDirectoryName(fileName) : Application.persistentDataPath,
-                                           (fileName.Length > 0) ? Path.GetFileName(fileName) : "level", "json");
+    // fileName = EditorUtility.SaveFilePanel("Export scene",
+    //                                        (fileName.Length > 0) ? Path.GetDirectoryName(fileName) : Application.persistentDataPath,
+    //                                        (fileName.Length > 0) ? Path.GetFileName(fileName) : "level", "json");
     if (!string.IsNullOrEmpty(fileName)) {
       PlayerPrefs.SetString("Editor.LevelFileName", fileName);
       var json  = LevelSerialize.Serialize(_level);
@@ -70,7 +75,11 @@ public class EditorAPI: MonoBehaviour {
     currentType = ToolsType.Objects;
   }
 
-  private void OnChangeCurrentPlatform(Platform platform) {
+  private void OnLoadCopmlete() {
+    platformsPanel.Initialize();
+  }
+
+  private void OnChangeCurrentPlatform(GameObject platform) {
     currentPlatform = platform;
   }
 

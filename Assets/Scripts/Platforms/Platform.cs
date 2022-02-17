@@ -5,6 +5,6 @@ using UnityEditor;
 
 public class Platform: MonoBehaviour {
 
-	public string id => AssetDatabase.GetAssetPath(PrefabUtility.GetPrefabInstanceHandle(gameObject));
+	public string id => "ID";
 
 }

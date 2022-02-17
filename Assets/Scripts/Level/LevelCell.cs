@@ -37,17 +37,12 @@ public class LevelCell : MonoBehaviour {
     }
   }
 
-  public void SetPlatform(Platform plat) {
+  public void SetPlatform(GameObject plat) {
     if (platform != null) {
       Destroy(platform.gameObject);
     }
 
-    if (PrefabUtility.GetPrefabAssetType(plat) == PrefabAssetType.NotAPrefab) {
-      Debug.LogAssertion("Platform is not a prefab!");
-      return;
-    }
-
-    platform = (Platform)PrefabUtility.InstantiatePrefab(plat);
+    platform = Instantiate(plat).GetComponent<Platform>();
 
     var transform1 = platform.transform;
     transform1.parent        = transform;
