@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - platforms
+  - m_GUID: 1ddd2071a3e0f4cdea2b6a28244b5da0
+    m_Address: Assets/Prefabs/Platforms/Platform_02.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - platforms
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2f276be2c82d542f9a7dc03b2770bbab, type: 2}
   m_SchemaSet:
