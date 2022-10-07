@@ -1,4 +1,3 @@
-//using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,13 +68,12 @@ public class Level: MonoBehaviour {
   }
 
   private void UpdateSize() {
-    // _bounds = null;
+    _bounds = new Bounds();
     if (_cells.Count > 0) {
-      _bounds = new Bounds(_cells[0].position, new Vector3(0, 1, 0));
-      _bounds.Encapsulate(_cells[0].position - new Vector3(0, 1, 0));
-    }
-    foreach(var cell in _cells) {
-      _bounds.Encapsulate(cell.position);
+      foreach(var cell in _cells) {
+        _bounds.Encapsulate(cell.position);
+      }
+      _bounds.Expand(new Vector3(1, 1, 1));
     }
   }
 
