@@ -64,7 +64,7 @@ public class Level: MonoBehaviour {
 
   public void Clear() {
     _cells.Clear();
-    
+
     _needUpdateSize = true;
   }
 

@@ -14,7 +14,7 @@ public class EditorAPI: MonoBehaviour {
   }
 
   private Level     _level;
-  
+
   public ToolsType      currentType = ToolsType.Hand;
   public PlatformsPanel platformsPanel;
   public GameObject     currentPlatform;
@@ -22,7 +22,7 @@ public class EditorAPI: MonoBehaviour {
   private void Awake() {
     Actions.OnLoadCopmlete += OnLoadCopmlete;
   }
-  
+
   private void Start() {
     _level = GameObject.FindObjectOfType<Level>();
 
@@ -47,7 +47,7 @@ public class EditorAPI: MonoBehaviour {
       LevelSerialize.DeSerialize(_level, JSON.Parse(File.ReadAllText(fileName)) as JSONObject);
     }
   }
-  
+
   public void OnSaveLevelButton() {
     var fileName = PlayerPrefs.GetString("Editor.LevelFileName", "level");
     // fileName = EditorUtility.SaveFilePanel("Export scene",
@@ -59,10 +59,10 @@ public class EditorAPI: MonoBehaviour {
       var bytes = new UTF8Encoding().GetBytes(json.ToString(2));
       var fs    = new FileStream(fileName, FileMode.Create, FileAccess.Write);
       fs.Write(bytes, 0, bytes.Length);
-      fs.Close();      
+      fs.Close();
     }
   }
-  
+
   public void OnHandToolSelect() {
     currentType = ToolsType.Hand;
   }

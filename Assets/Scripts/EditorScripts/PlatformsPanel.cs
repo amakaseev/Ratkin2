@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class PlatformsPanel: MonoBehaviour {
 
   public  Toggle   platformButton;
-  
+
   public void Initialize() {
     var group           = GetComponent<ToggleGroup>();
     var platformsAssets = ResourceManager.platforms;
