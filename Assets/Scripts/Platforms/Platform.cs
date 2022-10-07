@@ -5,6 +5,6 @@ using UnityEditor;
 
 public class Platform: MonoBehaviour {
 
-  public string id => "ID";
+  // public string id => "ID";
 
 }

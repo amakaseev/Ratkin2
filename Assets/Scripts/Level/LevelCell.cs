@@ -42,8 +42,7 @@ public class LevelCell : MonoBehaviour {
       Destroy(platform.gameObject);
     }
 
-    platform = Instantiate(plat).GetComponent<Platform>();
-
+    platform = (PrefabUtility.InstantiatePrefab(plat) as GameObject).GetComponent<Platform>();
     var transform1 = platform.transform;
     transform1.parent        = transform;
     transform1.localPosition = Vector3.zero;

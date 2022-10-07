@@ -1,5 +1,6 @@
 using SimpleJSON;
 using UnityEngine;
+using UnityEditor;
 
 public static class LevelSerialize {
 
@@ -16,6 +17,13 @@ public static class LevelSerialize {
     };
   }
 
+  private static JSONObject Serialize(LevelCell cell) {
+    var cellObject = new JSONObject();
+    cellObject["pos"]      = cell.gridPos.ToString();
+    cellObject["platform"] = PrefabUtility.GetCorrespondingObjectFromSource(cell.platform).name;
+    return cellObject;
+  }
+
   public static void DeSerialize(Level level, JSONObject json) {
     level.Clear();
 
@@ -28,18 +36,12 @@ public static class LevelSerialize {
     }
   }
 
-  private static JSONObject Serialize(LevelCell cell) {
-    var cellObject = new JSONObject();
-    cellObject["pos"]      = cell.gridPos.ToString();
-    cellObject["platform"] = cell.platform.id;
-    return cellObject;
-  }
-
   private static void DeSerializeCell(Level level, JSONObject cellObject) {
-    var cell = Level.CreateCell();
-    level.SetCell(new Vector2Int().FromString(cellObject["pos"]), cell);
+    var platformsAssets = ResourceManager.platforms;
 
-    Debug.Log(new Vector2Int().FromString(cellObject["pos"]));
+    var cell = Level.CreateCell();
+    cell.SetPlatform(platformsAssets[cellObject["platform"]]);
+    level.SetCell(new Vector2Int().FromString(cellObject["pos"]), cell);
   }
 
 }
