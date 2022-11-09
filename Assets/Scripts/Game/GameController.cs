@@ -7,11 +7,16 @@ using SimpleJSON;
 
 public class GameController: MonoBehaviour {
 
-  private Level _level;
+  public Level            _levelPrefab;
+  public PlayerController _playerPrefab;
 
-  private void Awake() {
+  private Level _level;
+  private PlayerController _player;
+
+  private void Start() {
     Actions.OnLoadCopmlete += OnLoadCopmlete;
-    _level = GameObject.FindObjectOfType<Level>();
+    _level = Instantiate(_levelPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Level;
+    _player = Instantiate(_playerPrefab, Level.CenterOfGridPos(new Vector2Int(0, 0)), Quaternion.identity) as PlayerController;
   }
 
   void OnLoadCopmlete() {
