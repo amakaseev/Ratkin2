@@ -9,6 +9,7 @@ public class GameCamera: MonoBehaviour {
 
   public float      moveSpeed = 10;
   public float      lookSpeed = 1;
+  public Transform  lookTarget;
 
   bool    _isPointerOverGameObject;
   Vector2 _cursorPosition;
@@ -41,7 +42,12 @@ public class GameCamera: MonoBehaviour {
     _cursorDelta = input.Get<Vector2>();
     if (_lookActive) {
       if (_leftButton) {
-        Vector3 rotatePoint = GetLookPoint(new Vector2(Screen.width / 2, Screen.height / 2));
+        Vector3 rotatePoint;
+        if (lookTarget != null) {
+          rotatePoint = lookTarget.position;
+        } else {
+          rotatePoint = GetLookPoint(new Vector2(Screen.width / 2, Screen.height / 2));
+        }
         transform.RotateAround(rotatePoint, Vector3.up, _cursorDelta.x * lookSpeed);
         transform.RotateAround(rotatePoint, transform.right, - _cursorDelta.y * lookSpeed);
       } else if (_rightButton) {

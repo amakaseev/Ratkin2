@@ -31,7 +31,7 @@ public static class LevelSerialize {
     if (cellsArray != null) {
       foreach (var cell in cellsArray) {
         DeSerializeCell(level, cell.Value as JSONObject);
-        Debug.Log(cell.Value);
+        // Debug.Log(cell.Value);
       }
     }
   }
