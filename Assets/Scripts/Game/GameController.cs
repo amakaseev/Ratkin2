@@ -9,16 +9,18 @@ public class GameController: MonoBehaviour {
 
   public Level            _levelPrefab;
   public PlayerController _playerPrefab;
-  public GameCamera       _gameCamera;
+  public GameCamera       _cameraPrefab;
 
-  private Level _level;
-  private PlayerController _player;
+  Level _level;
+  PlayerController _player;
+  GameCamera _camera;
 
   private void Start() {
     Actions.OnLoadCopmlete += OnLoadCopmlete;
     _level = Instantiate(_levelPrefab, new Vector3(0, 0, 0), Quaternion.identity) as Level;
     _player = Instantiate(_playerPrefab, Level.CenterOfGridPos(new Vector2Int(0, 0)), Quaternion.identity) as PlayerController;
-    _gameCamera.lookTarget = _player.transform;
+    _camera = Instantiate(_cameraPrefab);
+    _camera.SetTarget(_player.transform);
   }
 
   void OnLoadCopmlete() {

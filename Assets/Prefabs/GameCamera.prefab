@@ -117,8 +117,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 549540431453718910}
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 5, z: -5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -139,8 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  lookSpeed: 1
-  lookTarget: {fileID: 0}
+  lookSpeed: 25
+  lookDamping: 20
 --- !u!114 &544961066503250256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,6 +168,6 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: a73154be-7c7b-4bfe-a728-c7e5d7b97a65
+  m_DefaultActionMap: GameCamera
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
